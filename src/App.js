@@ -1,25 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import Anime from 'react-anime';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      counter: 0,
+    };
+
+
+    setInterval(this.incrementCounter);
+  }
+
+  incrementCounter = () =>
+    this.setState(({ counter }) => ({ counter: counter++ }));
+
+  render() {
+    return (
+      <Anime translateX={[0, 25 * (4 % this.state.counter)]}>
+        <div style={styles.circle} />
+      </Anime>
+    );
+  }
 }
 
-export default App;
+const styles = {
+  circle: {
+    width: 64,
+    height: 64,
+    borderRadius: '100%',
+    background: 'steelblue',
+  },
+};
+
+export default App
